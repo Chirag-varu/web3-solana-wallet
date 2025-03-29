@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Solana Wallet Connection App 🚀
 
-## Getting Started
+A **Next.js + TypeScript** frontend application that interacts with the **Solana blockchain**, enabling users to connect their Solana wallets (Phantom, Solflare, etc.), manage SPL tokens, and perform transactions seamlessly on the **Solana Devnet**.
 
-First, run the development server:
+## 🌟 Features
+✅ **Solana Wallet Integration** – Connect/disconnect Phantom, Solflare, and more.  
+✅ **Wallet Information** – Display wallet address and SOL balance.  
+✅ **SPL Token Management** – Create, mint, and send SPL tokens.  
+✅ **Real-time Blockchain Data** – View token balances & transaction history.  
+✅ **Transaction Handling** – Secure and efficient token transfers.  
+✅ **Modern UI/UX** – Clean, responsive, and user-friendly design.  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🏗 Tech Stack
+- **Next.js** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
+- **Solana Web3.js**
+- **Solana Wallet Adapter**
+
+## 📂 Project Structure
+```
+app/
+ ├── components/            # UI Components (WalletConnect, TokenActions, etc.)
+ ├── contexts/              # Context Providers (WalletContext.tsx)
+ ├── styles/                # Global Styles
+ ├── pages/                 # Application Pages
+ ├── layout.tsx             # Layout Wrapper
+ ├── globals.css            # Global CSS
+ ├── next.config.ts         # Next.js Configuration
+ ├── tsconfig.json          # TypeScript Config
+ ├── package.json           # Dependencies
+ ├── README.md              # Project Documentation
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚡ Installation & Setup
+### 1️⃣ Clone the Repository
+```sh
+git clone https://github.com/Chirag-varu/web3-solana-wallet.git
+cd solana-wallet-app
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2️⃣ Install Dependencies
+```sh
+npm install  # or yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3️⃣ Set Up Environment Variables
+Create a `.env.local` file and add:
+```env
+NEXT_PUBLIC_SOLANA_NETWORK=devnet
+```
 
-## Learn More
+### 4️⃣ Run the Development Server
+```sh
+npm run dev  # or yarn dev
+```
+The app will be available at **`http://localhost:3000`**.
 
-To learn more about Next.js, take a look at the following resources:
+## 🔗 Wallet Integration
+This project leverages **@solana/wallet-adapter-react** for smooth wallet authentication.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Supported Wallets:
+- [Phantom](https://phantom.app/)
+- [Solflare](https://solflare.com/)
+- [Sollet](https://www.sollet.io/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Connecting Your Wallet
+1. Click **"Connect Wallet"**.
+2. Select your preferred wallet (Phantom, Solflare, etc.).
+3. Approve the connection in your wallet.
+4. Done! 🎉 Your wallet address and SOL balance will be displayed.
 
-## Deploy on Vercel
+## 🎯 Smart Contract Interactions
+### Create a Token
+- Click **"Create Token"** to generate an SPL token.
+- Transaction confirmation will appear.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Mint Tokens
+- Enter the amount and **mint** tokens to your wallet.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Send Tokens
+- Enter a recipient’s **wallet address** and transfer tokens.
+
+## 🛠 Troubleshooting
+### 1️⃣ Wallet Not Connecting?
+- Ensure **Phantom Wallet** is installed.
+- Refresh the page and reconnect.
+
+### 2️⃣ Wallet Connection Error?
+- Open **Phantom Wallet** and confirm you're on **Devnet**.
+- Run:
+  ```sh
+  solana config set --url https://api.devnet.solana.com
+  ```
+- If the issue persists, try clearing browser cache and reloading.
+
+### 3️⃣ Transaction Errors?
+- Check if your wallet has sufficient SOL for transaction fees.
+- Ensure you’re using the correct network (**Devnet**).
+
+## 🚀 Deployment
+Deploy using **Vercel** or **Netlify**:
+```sh
+npm run build
+npm run start
+```
+
+## 🤝 Contributing
+Found a bug or want to improve the app? Feel free to open an **issue** or submit a **pull request**.
+
+## 📜 License
+This project is licensed under the **MIT License**.
+
+---
+
+👨‍💻 **Developed by [Your Name](https://github.com/Chirag-varu/)**  
+🌟 **Star this repo if you find it useful!** ⭐  
+
