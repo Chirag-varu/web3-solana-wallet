@@ -22,8 +22,8 @@ Live Link: https://web3-solana-wallet.vercel.app/
 ---
 
 ## **Project Structure Overview 📂**
-
-The **Chirag-Varu Web3 Solana Wallet** project follows a well-structured directory layout to maintain organization and scalability:
+It has well-structured directory layout to maintain and organization code base.
+It is well documented and commented also used best practices and modular code structure for scalability and collaboration:
 
 ```
 web3-solana-wallet/
