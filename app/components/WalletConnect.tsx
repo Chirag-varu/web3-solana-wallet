@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { PublicKey, Transaction, SystemProgram, Keypair } from "@solana/web3.js";
 import { TOKEN_PROGRAM_ID, MintLayout, getAccount, getAssociatedTokenAddress } from "@solana/spl-token";
 import toast, { Toaster } from "react-hot-toast";
+import { Copy, Check } from "lucide-react";
 
 // Define a type for transaction details
 // This helps structure the data retrieved from blockchain transactions
@@ -28,6 +29,7 @@ const WalletConnect = () => {
   const [transactions, setTransactions] = useState<TransactionDetails[]>([]);
   const [loadingTransactions, setLoadingTransactions] = useState<boolean>(false);
   const [creatingToken, setCreatingToken] = useState<boolean>(false);
+  const [copied, setCopied] = useState(false);
 
   // Fetch blockchain data (wallet balance and transactions) when publicKey changes
   useEffect(() => {
@@ -113,22 +115,43 @@ const WalletConnect = () => {
     setCreatingToken(false); // Stop loading token creation
   };
 
+  // Function to copy wallet address
+  const copyToClipboard = () => {
+    if (publicKey) {
+      navigator.clipboard.writeText(publicKey.toBase58());
+      setCopied(true);
+      toast.success("Wallet address copied! 📋");
+  
+      // Reset back to copy icon after 2 seconds
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center space-y-4 p-6 border rounded-xl shadow-lg bg-white w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto">
       <Toaster position="top-center" reverseOrder={false} />
       <WalletMultiButton />
       {publicKey && (
         <div className="w-full text-center">
-          <p className="text-lg font-semibold">Wallet: {publicKey.toBase58().slice(0, 6)}...{publicKey.toBase58().slice(-6)}</p>
+          <div className="w-full text-center flex items-center justify-center gap-4">
+            <p className="text-lg font-semibold">
+              Wallet: {publicKey.toBase58().slice(0, 6)}...{publicKey.toBase58().slice(-6)}
+            </p>
+            <button
+              onClick={copyToClipboard}
+              className="hover:text-blue-500 transition-all"
+            >
+              {copied ? <Check size={18} className="text-blue-500" /> : <Copy size={18} />}
+            </button>
+          </div>
           <p className="text-lg">Balance: {balance !== null ? `${balance} SOL` : "Loading..."}</p>
           {tokenBalance !== null && <p className="text-lg">Token Balance: {tokenBalance}</p>}
-          
+
           {/* Create Token Button with Loading State */}
-          <button 
-            onClick={createToken} 
-            className={`px-4 py-2 mt-4 rounded-lg ${
-              creatingToken ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:cursor-pointer"
-            } text-white`}
+          <button
+            onClick={createToken}
+            className={`px-4 py-2 mt-4 rounded-lg ${creatingToken ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:cursor-pointer"
+              } text-white`}
             disabled={creatingToken}
           >
             {creatingToken ? "Creating..." : "Create Token"}
