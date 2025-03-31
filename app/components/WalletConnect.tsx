@@ -3,7 +3,7 @@
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useEffect, useState } from "react";
-import { PublicKey, Transaction, SystemProgram, Keypair, ConfirmedSignatureInfo } from "@solana/web3.js";
+import { PublicKey, Transaction, SystemProgram, Keypair } from "@solana/web3.js";
 import { TOKEN_PROGRAM_ID, MintLayout, getAccount, getAssociatedTokenAddress } from "@solana/spl-token";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -18,13 +18,16 @@ const WalletConnect = () => {
   const { publicKey, sendTransaction } = useWallet();
   const { connection } = useConnection();
   const [balance, setBalance] = useState<number | null>(null);
-  const [tokenBalance, setTokenBalance] = useState<number | null>(null);  
+  const [tokenBalance, setTokenBalance] = useState<number | null>(null);
   const [transactions, setTransactions] = useState<TransactionDetails[]>([]);
+  const [loadingTransactions, setLoadingTransactions] = useState<boolean>(false);
+  const [creatingToken, setCreatingToken] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchBlockchainData = async () => {
       if (!publicKey) return;
 
+      setLoadingTransactions(true); // Start loading transactions
       try {
         const balance = await connection.getBalance(publicKey);
         setBalance(balance / 1e9);
@@ -50,6 +53,7 @@ const WalletConnect = () => {
       } catch (error) {
         console.error("Error fetching blockchain data", error);
       }
+      setLoadingTransactions(false); // Stop loading transactions
     };
 
     fetchBlockchainData();
@@ -72,6 +76,7 @@ const WalletConnect = () => {
       return;
     }
 
+    setCreatingToken(true); // Start loading token creation
     try {
       const mint = Keypair.generate();
       const transaction = new Transaction().add(
@@ -93,6 +98,7 @@ const WalletConnect = () => {
       console.error("Token creation failed", error);
       toast.error("Token creation failed! ❌");
     }
+    setCreatingToken(false); // Stop loading token creation
   };
 
   return (
@@ -104,10 +110,24 @@ const WalletConnect = () => {
           <p className="text-lg font-semibold">Wallet: {publicKey.toBase58().slice(0, 6)}...{publicKey.toBase58().slice(-6)}</p>
           <p className="text-lg">Balance: {balance !== null ? `${balance} SOL` : "Loading..."}</p>
           {tokenBalance !== null && <p className="text-lg">Token Balance: {tokenBalance}</p>}
-          <button onClick={createToken} className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:cursor-pointer">Create Token</button>
+          
+          {/* Create Token Button with Loading State */}
+          <button 
+            onClick={createToken} 
+            className={`px-4 py-2 mt-4 rounded-lg ${
+              creatingToken ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:cursor-pointer"
+            } text-white`}
+            disabled={creatingToken}
+          >
+            {creatingToken ? "Creating..." : "Create Token"}
+          </button>
+
+          {/* Transaction History Table with Loading State */}
           <div className="mt-4 w-full overflow-x-auto">
             <h3 className="font-bold text-lg mb-2">Transaction History:</h3>
-            {transactions.length > 0 ? (
+            {loadingTransactions ? (
+              <p>Loading transactions...</p>
+            ) : transactions.length > 0 ? (
               <table className="w-full border-collapse border border-gray-300">
                 <thead>
                   <tr className="bg-gray-200">
