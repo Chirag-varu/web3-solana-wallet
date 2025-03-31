@@ -1,5 +1,6 @@
 "use client";
 
+// Import necessary hooks and components from Solana wallet adapter
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useEffect, useState } from "react";
@@ -7,6 +8,8 @@ import { PublicKey, Transaction, SystemProgram, Keypair } from "@solana/web3.js"
 import { TOKEN_PROGRAM_ID, MintLayout, getAccount, getAssociatedTokenAddress } from "@solana/spl-token";
 import toast, { Toaster } from "react-hot-toast";
 
+// Define a type for transaction details
+// This helps structure the data retrieved from blockchain transactions
 type TransactionDetails = {
   signature: string;
   blockTime: string;
@@ -15,22 +18,27 @@ type TransactionDetails = {
 };
 
 const WalletConnect = () => {
+  // Destructure wallet-related hooks
   const { publicKey, sendTransaction } = useWallet();
   const { connection } = useConnection();
+
+  // State variables to store balance, token balance, transactions, and loading states
   const [balance, setBalance] = useState<number | null>(null);
   const [tokenBalance, setTokenBalance] = useState<number | null>(null);
   const [transactions, setTransactions] = useState<TransactionDetails[]>([]);
   const [loadingTransactions, setLoadingTransactions] = useState<boolean>(false);
   const [creatingToken, setCreatingToken] = useState<boolean>(false);
 
+  // Fetch blockchain data (wallet balance and transactions) when publicKey changes
   useEffect(() => {
     const fetchBlockchainData = async () => {
       if (!publicKey) return;
 
       setLoadingTransactions(true); // Start loading transactions
       try {
+        // Fetch wallet balance in SOL
         const balance = await connection.getBalance(publicKey);
-        setBalance(balance / 1e9);
+        setBalance(balance / 1e9); // Convert lamports to SOL
 
         // ✅ Get latest 10 transaction signatures
         const confirmedSignatures = await connection.getSignaturesForAddress(publicKey, { limit: 10 });
@@ -59,6 +67,7 @@ const WalletConnect = () => {
     fetchBlockchainData();
   }, [publicKey, connection]);
 
+  // Function to fetch token balance for a given mint address
   const fetchTokenBalance = async (mintAddress: PublicKey) => {
     if (!publicKey) return;
     try {
@@ -70,6 +79,7 @@ const WalletConnect = () => {
     }
   };
 
+  // Function to create a new token
   const createToken = async () => {
     if (!publicKey || !sendTransaction) {
       toast.error("Wallet not connected!");
@@ -78,6 +88,7 @@ const WalletConnect = () => {
 
     setCreatingToken(true); // Start loading token creation
     try {
+      // Generate a new keypair for the token mint
       const mint = Keypair.generate();
       const transaction = new Transaction().add(
         SystemProgram.createAccount({
@@ -93,6 +104,7 @@ const WalletConnect = () => {
       await sendTransaction(transaction, connection, { signers: [mint] });
       toast.success(`Token created successfully! 🚀 Mint: ${mint.publicKey.toBase58()}`);
 
+      // Fetch token balance after creation
       fetchTokenBalance(mint.publicKey);
     } catch (error) {
       console.error("Token creation failed", error);
@@ -141,12 +153,7 @@ const WalletConnect = () => {
                   {transactions.map((tx) => (
                     <tr key={tx.signature} className="border">
                       <td className="border p-2">
-                        <a
-                          href={`https://explorer.solana.com/tx/${tx.signature}?cluster=devnet`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 underline"
-                        >
+                        <a href={`https://explorer.solana.com/tx/${tx.signature}?cluster=devnet`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
                           {tx.signature.slice(0, 6)}...{tx.signature.slice(-6)}
                         </a>
                       </td>
