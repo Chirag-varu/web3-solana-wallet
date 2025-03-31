@@ -2,6 +2,8 @@
 
 A **Next.js + TypeScript** frontend application that interacts with the **Solana blockchain**, enabling users to connect their Solana wallets (Phantom, Solflare, etc.), manage SPL tokens, and perform transactions seamlessly on the **Solana Devnet**.
 
+Live Link: https://web3-solana-wallet.vercel.app/
+
 ## 🌟 Features
 ✅ **Solana Wallet Integration** – Connect/disconnect Phantom, Solflare, and more.  
 ✅ **Wallet Information** – Display wallet address and SOL balance.  
