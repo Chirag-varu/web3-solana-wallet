@@ -26,7 +26,7 @@ Live Link: https://web3-solana-wallet.vercel.app/
 The **Chirag-Varu Web3 Solana Wallet** project follows a well-structured directory layout to maintain organization and scalability:
 
 ```
-chirag-varu-web3-solana-wallet/
+web3-solana-wallet/
 ├── app/                   # Application source files
 │   ├── components/        # Reusable UI components
 │   │   └── WalletConnect.tsx  # Wallet connection component
