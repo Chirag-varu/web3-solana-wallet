@@ -19,20 +19,32 @@ Live Link: https://web3-solana-wallet.vercel.app/
 - **Solana Web3.js**
 - **Solana Wallet Adapter**
 
-## 📂 Project Structure
+---
+
+## **Project Structure Overview 📂**
+
+The **Chirag-Varu Web3 Solana Wallet** project follows a well-structured directory layout to maintain organization and scalability:
+
 ```
-app/
- ├── components/            # UI Components (WalletConnect, TokenActions, etc.)
- ├── contexts/              # Context Providers (WalletContext.tsx)
- ├── styles/                # Global Styles
- ├── pages/                 # Application Pages
- ├── layout.tsx             # Layout Wrapper
- ├── globals.css            # Global CSS
- ├── next.config.ts         # Next.js Configuration
- ├── tsconfig.json          # TypeScript Config
- ├── package.json           # Dependencies
- ├── README.md              # Project Documentation
+chirag-varu-web3-solana-wallet/
+├── app/                   # Application source files
+│   ├── components/        # Reusable UI components
+│   │   └── WalletConnect.tsx  # Wallet connection component
+│   ├── contexts/          # Context providers
+│   │   └── WalletContext.tsx  # Solana wallet context
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Layout component
+│   ├── page.tsx           # Main page component
+│
+├── README.md              # Project documentation
+├── LICENSE                # License details
+├── eslint.config.mjs      # ESLint configuration
+├── next.config.ts         # Next.js configuration
+├── package.json           # Dependencies and scripts
+├── postcss.config.mjs     # PostCSS configuration
+├── tsconfig.json          # TypeScript configuration
 ```
+---
 
 ## ⚡ Installation & Setup
 ### 1️⃣ Clone the Repository
