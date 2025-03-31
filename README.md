@@ -98,21 +98,14 @@ This project leverages **@solana/wallet-adapter-react** for smooth wallet authen
 - Check if your wallet has sufficient SOL for transaction fees.
 - Ensure you’re using the correct network (**Devnet**).
 
-## 🚀 Deployment
-Deploy using **Vercel** or **Netlify**:
-```sh
-npm run build
-npm run start
-```
-
 ## 🤝 Contributing
 Found a bug or want to improve the app? Feel free to open an **issue** or submit a **pull request**.
 
 ## 📜 License
-This project is licensed under the **MIT License**.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-👨‍💻 **Developed by [Your Name](https://github.com/Chirag-varu/)**  
+👨‍💻 **Developed by [Chirag Varu](https://github.com/Chirag-varu/)**  
 🌟 **Star this repo if you find it useful!** ⭐  
 

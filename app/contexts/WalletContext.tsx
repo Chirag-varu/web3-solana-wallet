@@ -1,4 +1,4 @@
-"use client"; // ✅ Ensure it's a client component
+"use client";
 
 import { createContext, useContext, useMemo } from "react";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
@@ -9,9 +9,9 @@ import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 const WalletContext = createContext(null);
 
 export const WalletContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const endpoint = clusterApiUrl("devnet"); // ✅ Connect to Solana Devnet
+  const endpoint = clusterApiUrl("devnet"); // Connect to Solana Devnet
 
-  // ✅ Fix: Use `useMemo` to ensure wallet initialization is stable
+  //`useMemo` to ensure wallet initialization is stable
   const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
 
   return (
