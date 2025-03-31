@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { PublicKey, Transaction, SystemProgram, Keypair } from "@solana/web3.js";
 import { TOKEN_PROGRAM_ID, MintLayout, getAccount, getAssociatedTokenAddress } from "@solana/spl-token";
 import toast, { Toaster } from "react-hot-toast";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check, LogOut } from "lucide-react";
 
 // Define a type for transaction details
 // This helps structure the data retrieved from blockchain transactions
@@ -20,7 +20,7 @@ type TransactionDetails = {
 
 const WalletConnect = () => {
   // Destructure wallet-related hooks
-  const { publicKey, sendTransaction } = useWallet();
+  const { publicKey, sendTransaction, disconnect } = useWallet();
   const { connection } = useConnection();
 
   // State variables to store balance, token balance, transactions, and loading states
@@ -121,7 +121,7 @@ const WalletConnect = () => {
       navigator.clipboard.writeText(publicKey.toBase58());
       setCopied(true);
       toast.success("Wallet address copied! 📋");
-  
+
       // Reset back to copy icon after 2 seconds
       setTimeout(() => setCopied(false), 2000);
     }
@@ -147,15 +147,25 @@ const WalletConnect = () => {
           <p className="text-lg">Balance: {balance !== null ? `${balance} SOL` : "Loading..."}</p>
           {tokenBalance !== null && <p className="text-lg">Token Balance: {tokenBalance}</p>}
 
-          {/* Create Token Button with Loading State */}
-          <button
-            onClick={createToken}
-            className={`px-4 py-2 mt-4 rounded-lg ${creatingToken ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:cursor-pointer"
-              } text-white`}
-            disabled={creatingToken}
-          >
-            {creatingToken ? "Creating..." : "Create Token"}
-          </button>
+          <div className="flex items-center justify-center gap-4">
+            {/* Create Token Button with Loading State */}
+            <button
+              onClick={createToken}
+              className={`px-4 py-2 mt-4 rounded-lg ${creatingToken ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:cursor-pointer"
+                } text-white`}
+              disabled={creatingToken}
+            >
+              {creatingToken ? "Creating..." : "Create Token"}
+            </button>
+
+            {/* Disconnect Wallet Button */}
+            <button
+              onClick={disconnect}
+              className="px-4 py-2 mt-4 bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center justify-center gap-2"
+            >
+              <LogOut size={18} /> Disconnect Wallet
+            </button>
+          </div>
 
           {/* Transaction History Table with Loading State */}
           <div className="mt-4 w-full overflow-x-auto">
