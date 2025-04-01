@@ -18,6 +18,12 @@ Live Link: https://web3-solana-wallet.vercel.app/
 - **Tailwind CSS**
 - **Solana Web3.js**
 - **Solana Wallet Adapter**
+---
+
+![Screenshot (112)](https://github.com/user-attachments/assets/9eef23ea-35ac-4234-8b31-41a18c518522)
+![Screenshot (115)](https://github.com/user-attachments/assets/a3a60828-7b55-498a-838e-5dcc21c42de4)
+![Screenshot (113)](https://github.com/user-attachments/assets/819db9aa-fc5c-4831-a6f4-5a52c9061d3c)
+![Screenshot (114)](https://github.com/user-attachments/assets/5a3fe774-f2f1-4ac4-b6c6-b3c94f5d5791)
 
 ---
 
