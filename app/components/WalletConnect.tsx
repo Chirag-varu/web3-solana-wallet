@@ -134,7 +134,7 @@ const WalletConnect = () => {
       {publicKey && (
         <div className="w-full text-center">
           <div className="w-full text-center flex items-center justify-center gap-4">
-            <p className="text-lg font-semibold">
+            <p className="text-lg font-semibold text-black">
               Wallet: {publicKey.toBase58().slice(0, 6)}...{publicKey.toBase58().slice(-6)}
             </p>
             <button
@@ -144,7 +144,7 @@ const WalletConnect = () => {
               {copied ? <Check size={18} className="text-blue-500" /> : <Copy size={18} />}
             </button>
           </div>
-          <p className="text-lg">Balance: {balance !== null ? `${balance} SOL` : "Loading..."}</p>
+          <p className="text-lg text-black">Balance: {balance !== null ? `${balance} SOL` : "Loading..."}</p>
           {tokenBalance !== null && <p className="text-lg">Token Balance: {tokenBalance}</p>}
 
           <div className="flex items-center justify-center gap-4">
@@ -169,9 +169,9 @@ const WalletConnect = () => {
 
           {/* Transaction History Table with Loading State */}
           <div className="mt-4 w-full overflow-x-auto">
-            <h3 className="font-bold text-lg mb-2">Transaction History:</h3>
+            <h3 className="font-bold text-lg mb-2 text-black">Transaction History:</h3>
             {loadingTransactions ? (
-              <p>Loading transactions...</p>
+              <p className="text-black">Loading transactions...</p>
             ) : transactions.length > 0 ? (
               <table className="w-full border-collapse border border-gray-300">
                 <thead>
@@ -198,7 +198,7 @@ const WalletConnect = () => {
                 </tbody>
               </table>
             ) : (
-              <p>No recent transactions.</p>
+              <p className="text-black">No recent transactions.</p>
             )}
           </div>
         </div>
