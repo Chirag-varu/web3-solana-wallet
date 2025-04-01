@@ -1,32 +1,35 @@
-name: Deploy to AWS S3 and Invalidate CloudFront
+name: Deploy to S3 & CloudFront
 
 on:
   push:
     branches:
-      - main  
+      - main # Change this if your branch is different
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Next.js App
-        run: npm run build && npm run export
+      - name: Build & Export Next.js
+        run: |
+          npm run build
+          npm run export
 
-      - name: Upload to S3
-        run: aws s3 sync ./out s3://$AWS_S3_BUCKET --delete
+      - name: Deploy to S3
+        run: aws s3 sync ./out s3://web3-solana-wallet --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "your-region" # Example: us-east-1
 
       - name: Invalidate CloudFront Cache
-        run: aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id E1U4BMKQZCKNK4 --paths "/*"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
