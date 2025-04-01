@@ -16,10 +16,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build & Export Next.js
-        run: |
-          npm run build
-          npm run export
+      - name: Build Next.js
+        run: npm run build
 
       - name: Deploy to S3
         run: aws s3 sync ./out s3://web3-solana-wallet --delete
