@@ -1,4 +1,4 @@
-name: Deploy to S3 & CloudFront
+name: Deploy to AWS S3 & CloudFront
 
 on:
   push:
