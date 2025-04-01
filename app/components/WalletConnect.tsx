@@ -184,7 +184,7 @@ const WalletConnect = () => {
                 </thead>
                 <tbody>
                   {transactions.map((tx) => (
-                    <tr key={tx.signature} className="border">
+                    <tr key={tx.signature} className="border even:bg-gray-50 hover:bg-gray-100 transition">
                       <td className="border p-2">
                         <a href={`https://explorer.solana.com/tx/${tx.signature}?cluster=devnet`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
                           {tx.signature.slice(0, 6)}...{tx.signature.slice(-6)}
